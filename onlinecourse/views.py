@@ -154,10 +154,11 @@ def show_exam_result(request, course_id, submission_id):
     # Calcular el puntaje total y verificar si el estudiante aprobó el examen
     total_score = 0
     for question in questions:
-        if question.correct_choice.id in selected_choices_ids:
-            total_score += 1
+        if question.is_get_score(selected_choices_ids):
+            total_score += question.grade_point
 
     # Renderizar la vista de resultados del examen con los datos necesarios
-    return render(request, 'onlinecourse/exam_result.html', {'course': course, 'submission': submission, 'total_score': total_score})
+    return render(request, 'onlinecourse/exam_result_bootstrap.html', {'course': course, 'submission': submission, 'total_score': total_score})
+
 
 
